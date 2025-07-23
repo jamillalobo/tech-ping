@@ -1,0 +1,27 @@
+on: 
+  schedule:
+    - cron: '0 9 * * *'
+    - cron: '0 21 * * *'
+
+env: 
+  API_TOKEN_TELEGRAM: ${{ secrets.API_TOKEN_TELEGRAM }}
+  CHAT_ID: ${{ secrets.CHAT_ID }}
+  API_TOKEN_APIFY: ${{ secrets.API_TOKEN_APIFY }}
+  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+  NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      - name: Run the bot
+        run: |
+          python main.py
