@@ -3,10 +3,9 @@ import telebot
 from domain.entities.summary import SummaryList
 
 class TelegramBot:
-    def __init__(self):
-        from infrastructure.config import cfg
-        self.bot = cfg.bot_telegram
-        self.default_chat_id = cfg.chat_id
+    def __init__(self, bot_telegram: telebot.TeleBot, chat_id: str):
+        self.bot = bot_telegram
+        self.default_chat_id = chat_id
         logging.info("Telegram bot initialized successfully")
 
     def format_summaries(self, summaries: SummaryList) -> str:
@@ -17,7 +16,8 @@ class TelegramBot:
         
         for i, summary in enumerate(summaries.summaries, 1):
             message += f"**{i}. {summary.title}**\n"
-            message += f"- {summary.description}\n\n"
+            message += f"- {summary.description}\n"
+            message += f" Link: {summary.url}\n\n"
         
         message += "---\n🤖 Powered by Tech Ping Bot"
         return message

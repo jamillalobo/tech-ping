@@ -1,10 +1,10 @@
 import logging
 from typing import List, Dict, Any
+from apify_client import ApifyClient
 
 class ScraperTwitter:
-    def __init__(self):
-        from infrastructure.config import cfg
-        self.client = cfg.apify_client
+    def __init__(self, apify_client: ApifyClient):
+        self.client = apify_client
 
     def scrape_twitter(self, max_tweets: int = 10) -> List[str]:
         try:

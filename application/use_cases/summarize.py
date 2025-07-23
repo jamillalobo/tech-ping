@@ -3,6 +3,7 @@ from typing import List, Dict, Any
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import PydanticOutputParser
 from langchain_core.exceptions import OutputParserException
+from langchain_google_genai import GoogleGenerativeAI
 from utils.helpers import format_prompt_text
 from domain.entities.summary import SummaryList
 
@@ -32,9 +33,8 @@ parser = PydanticOutputParser(pydantic_object=SummaryList)
 
 
 class Summarizer:
-    def __init__(self):
-        from infrastructure.config import cfg
-        self.llm = cfg.chat_gemini
+    def __init__(self, chat_gemini: GoogleGenerativeAI):
+        self.llm = chat_gemini
 
     def format_news_prompt(self, news: List[Dict[str, Any]]) -> str:
         return format_prompt_text(news, ["title", "description", "url"], "No news available")
@@ -44,8 +44,8 @@ class Summarizer:
         return format_prompt_text(tweets, ["text", "url"], "No tweets available")
 
     def summarize_trends(self, tweets: List[Dict[str, Any]], news: List[Dict[str, Any]]) -> SummaryList:
-        formatted_news = self.format_news_for_prompt(news)
-        formatted_tweets = self.format_tweets_for_prompt(tweets)
+        formatted_news = self.format_news_prompt(news)
+        formatted_tweets = self.format_tweets_prompt(tweets)
         
         prompt = ChatPromptTemplate.from_messages([
             ("system", "You are a helpful AI bot. Your name is Tech Ping."),

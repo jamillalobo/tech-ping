@@ -2,11 +2,11 @@ from datetime import datetime, timedelta
 import logging
 from typing import List, Dict, Any
 from domain.entities.article import News
+from newsapi import NewsApiClient
 
 class NewsCollector:
-    def __init__(self):
-        from infrastructure.config import cfg
-        self.newsapi = cfg.news_collector
+    def __init__(self, news_collector: NewsApiClient):
+        self.newsapi = news_collector
 
     def get_news(self, max_articles: int = 20) -> List[Dict[str, Any]]:
         try:

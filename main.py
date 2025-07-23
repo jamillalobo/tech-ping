@@ -1,9 +1,7 @@
 import schedule
 import time
 import logging
-from datetime import datetime
-from typing import Optional
-
+from infrastructure.config import Config
 from infrastructure.news.news_collector import NewsCollector
 from application.use_cases.summarize import Summarizer
 from interface.telegram.bot import TelegramBot
@@ -15,10 +13,12 @@ def collect_and_send_trends() -> bool:
         logging.info("=" * 50)
         logging.info("Starting tech trends collection and summary process")
         
-        twitter_scraper = ScraperTwitter()
-        news_collector = NewsCollector()
-        summarizer = Summarizer()
-        telegram_bot = TelegramBot()
+        cfg = Config()
+
+        twitter_scraper = ScraperTwitter(cfg.apify_client)
+        news_collector = NewsCollector(cfg.news_collector)
+        summarizer = Summarizer(cfg.chat_gemini)
+        telegram_bot = TelegramBot(cfg.bot_telegram, cfg.chat_id)
         
         logging.info("🤖 Collecting tweets...")
         tweets = twitter_scraper.scrape_twitter(max_tweets=15)
@@ -62,7 +62,7 @@ def schedule_jobs():
         lambda: collect_and_send_trends()
     ).tag('morning_update')
 
-    schedule.every().day.at("21:00").do(
+    schedule.every().day.at("19:30").do(
         lambda: collect_and_send_trends()
     ).tag('evening_update')
     
