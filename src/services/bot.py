@@ -1,6 +1,6 @@
 import logging
 import telebot
-from domain.entities.summary import SummaryList
+from src.models.summary import SummaryList
 
 class TelegramBot:
     def __init__(self, bot_telegram: telebot.TeleBot, chat_id: str):

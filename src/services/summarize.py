@@ -4,8 +4,8 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import PydanticOutputParser
 from langchain_core.exceptions import OutputParserException
 from langchain_google_genai import GoogleGenerativeAI
-from utils.helpers import format_prompt_text
-from domain.entities.summary import SummaryList
+from src.utils.formatter import format_prompt_text
+from src.models.summary import SummaryList
 
 PROMPT_INSTRUCTION = """
 You are analyzing tech trends from recent tweets and nws articles.

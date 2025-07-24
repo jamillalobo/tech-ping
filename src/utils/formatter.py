@@ -1,5 +1,4 @@
 from typing import List, Dict, Any
-import logging
 
 def format_prompt_text(items: List[Dict[str, Any]], fields: List[str], empty_message: str) -> str:
     if not items:
@@ -13,12 +12,3 @@ def format_prompt_text(items: List[Dict[str, Any]], fields: List[str], empty_mes
 
     return "\n\n".join(formatted)
 
-def setup_logging():
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.FileHandler('tech_ping_bot.log'),
-            logging.StreamHandler()
-        ]
-    )

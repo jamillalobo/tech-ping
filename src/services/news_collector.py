@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 import logging
 from typing import List, Dict, Any
-from domain.entities.article import News
+from src.models.article import News
 from newsapi import NewsApiClient
 
 class NewsCollector:

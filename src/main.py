@@ -1,12 +1,12 @@
 import schedule
 import time
 import logging
-from infrastructure.config import Config
-from infrastructure.news.news_collector import NewsCollector
-from application.use_cases.summarize import Summarizer
-from interface.telegram.bot import TelegramBot
-from infrastructure.twitter.tweet_scraper import ScraperTwitter
-from utils.helpers import setup_logging
+from src.config import Config
+from src.services.news_collector import NewsCollector
+from src.services.summarize import Summarizer
+from src.services.bot import TelegramBot
+from src.services.tweet_scraper import ScraperTwitter
+from src.utils.formatter import setup_logging
 
 def collect_and_send_trends() -> bool:
     try:
