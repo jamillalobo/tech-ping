@@ -77,7 +77,6 @@ def main():
     logging.info("Tech Ping Bot starting up...")
     
     try:
-        from infrastructure.config import cfg
         logging.info("✅ Configuration loaded successfully")
 
         schedule_jobs()
@@ -90,8 +89,7 @@ def main():
             time.sleep(10)
             
     except KeyboardInterrupt:
-        logging.info("🛑 Bot stopped by user")
-        print("\n🛑 Tech Ping Bot stopped")
+        logging.info("🛑 Tech Ping Bot stopped by user")
         
     except Exception as e:
         logging.error(f"💥 Fatal error: {e}", exc_info=True)
