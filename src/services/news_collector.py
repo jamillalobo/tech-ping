@@ -1,8 +1,10 @@
 from datetime import datetime, timedelta
 import logging
 from typing import List, Dict, Any
-from src.models.article import News
+
 from newsapi import NewsApiClient
+
+from models.article import News
 
 class NewsCollector:
     def __init__(self, news_collector: NewsApiClient):

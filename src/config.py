@@ -21,7 +21,7 @@ class Config:
             'NEWS_API_KEY'
         ]
         for var in items:
-            if not os.getevn(var):
+            if not os.getenv(var):
                 raise ValueError(f"{var} environment variable is required")
         
     @cached_property

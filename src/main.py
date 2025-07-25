@@ -1,12 +1,12 @@
 import schedule
 import time
 import logging
-from src.config import Config
-from src.services.news_collector import NewsCollector
-from src.services.summarize import Summarizer
-from src.services.bot import TelegramBot
-from src.services.tweet_scraper import ScraperTwitter
-from src.utils.formatter import setup_logging
+from config import Config
+from services.bot import TelegramBot
+from services.news_collector import NewsCollector
+from services.summarize import Summarizer
+from services.tweet_scraper import ScraperTwitter
+from utils.logger import setup_logging
 
 def collect_and_send_trends() -> bool:
     try:
@@ -58,17 +58,17 @@ def collect_and_send_trends() -> bool:
         return False
 
 def schedule_jobs():
-    schedule.every().day.at("09:00").do(
+    schedule.every().day.at("9:00").do(
         lambda: collect_and_send_trends()
     ).tag('morning_update')
 
-    schedule.every().day.at("19:30").do(
+    schedule.every().day.at("21:00").do(
         lambda: collect_and_send_trends()
     ).tag('evening_update')
     
     logging.info("✅ Scheduled jobs:")
     logging.info(" Morning update: 9:00 AM daily")
-    logging.info(" Evening update: 11:07 PM daily")
+    logging.info(" Evening update: 21:00 PM daily")
 
 def main():
     print("🚀 Starting Tech Ping Bot...")
