@@ -58,7 +58,7 @@ def collect_and_send_trends() -> bool:
         return False
 
 def schedule_jobs():
-    schedule.every().day.at("9:00").do(
+    schedule.every().day.at("09:00").do(
         lambda: collect_and_send_trends()
     ).tag('morning_update')
 
