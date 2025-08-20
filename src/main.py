@@ -7,6 +7,7 @@ from services.news_collector import NewsCollector
 from services.summarize import Summarizer
 from services.tweet_scraper import ScraperTwitter
 from utils.logger import setup_logging
+from pytz import timezone
 
 def collect_and_send_trends() -> bool:
     try:
@@ -58,11 +59,11 @@ def collect_and_send_trends() -> bool:
         return False
 
 def schedule_jobs():
-    schedule.every().day.at("09:00").do(
+    schedule.every().day.at("09:00", timezone("America/Sao_Paulo")).do(
         lambda: collect_and_send_trends()
     ).tag('morning_update')
 
-    schedule.every().day.at("21:00").do(
+    schedule.every().day.at("21:00", timezone("America/Sao_Paulo")).do(
         lambda: collect_and_send_trends()
     ).tag('evening_update')
     
